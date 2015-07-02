@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <meta charset="utf-8">
+    <title>Quiz</title>
     <link rel='icon' href='favicon.ico' type='image/x-icon' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Bienvenido a <%= title %></h1>
-    <p>El portal donde podra crear su propios juegos</p>
+    <h2>Quiz: el juego de las preguntas</h2>
     <p>
-      <a href="/quizes/question">Comience a jugar</a>
+      <%= respuesta %>
     </p>
+    <a href="/quizes/question">Intentelo otra vez</a>
+    </form>
   </body>
 </html>

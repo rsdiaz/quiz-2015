@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes){
               respuesta: {
                 type: DataTypes.STRING,
                 validate: { notEmpty: { msg: "-> Falta Respuesta"} }
+<<<<<<< HEAD
               },
               tema:{ type: DataTypes.STRING,
        validate: { isIn: {
@@ -18,5 +19,8 @@ module.exports = function(sequelize, DataTypes){
          }
        }
      }
+=======
+              }
+>>>>>>> 37ac1523894882ba704ab35fc6018feebe539dd3
             });
 }

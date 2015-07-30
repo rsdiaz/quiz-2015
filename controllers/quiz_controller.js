@@ -62,13 +62,8 @@ exports.answer = function(req, res) {
 // GET /quizes/new
 exports.new = function(req, res) {
   var quiz = models.Quiz.build(
-<<<<<<< HEAD
     { pregunta: "Pregunta", respuesta: "Respuesta", tema: 'Tema'}
-=======
-    { pregunta: "Pregunta", respuesta: "Respuesta"}
->>>>>>> 37ac1523894882ba704ab35fc6018feebe539dd3
   );
-
   res.render('quizes/new', {quiz: quiz, errors: []});
 };
 
@@ -96,21 +91,18 @@ exports.create = function(req, res) {
 exports.edit = function(req, res) {
   var quiz = req.quiz // Autoload de instancia de quiz
 
-<<<<<<< HEAD
+
   res.render('quizes/edit', { quiz: req.quiz, errors: [] });
-=======
-  res.render('/quizes/edit', { quiz: quiz, errors: [] });
->>>>>>> 37ac1523894882ba704ab35fc6018feebe539dd3
+
 };
 
 // PUT /quizes/:id
 exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
-<<<<<<< HEAD
+
   req.quiz.tema = req.body.quiz.tema;
-=======
->>>>>>> 37ac1523894882ba704ab35fc6018feebe539dd3
+
 
   //validar la coherencia del quiz
   req.quiz.validate().then(
@@ -119,11 +111,8 @@ exports.update = function(req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         //save: guarda en DB campos pregunta, respuesta y tema de quiz
-<<<<<<< HEAD
         req.quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(
-=======
-        req.quiz.save({fields: ["pregunta", "respuesta"]}).then(
->>>>>>> 37ac1523894882ba704ab35fc6018feebe539dd3
+
           //Redireccion HTTP (URL relativo) lista de preguntas
           function() {res.redirect('/quizes');}
         );

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 
@@ -20,9 +21,39 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
-app.use(cookieParser());
+app.use(cookieParser('Quiz 2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Helpers dinamicos:
+app.use(function(req, res, next) {
+  // guardar path en session.redir para despues de login
+  if (!req.path.match(/\/login|\/logout/)) {
+    req.session.redir = req.path;
+  }
+
+  // Hacer visible req.session en las vistas
+  res.locals.session = req.session;
+  next();
+})
+
+// Auto-logout
+app.use( function(req, res, next) {
+  if ( req.session.user ) {
+    var ahora = new Date();                           // ahora el tiempo es mayor
+    var activo = new Date( req.session.user.activo ); // momento cuando se hizo algo
+    if ( ( ahora-activo ) > 120000 ) {                // 120000ms = 2 segundos
+        delete req.session.user;
+        req.session.errors = [ { "message": 'Superado el tiempo de inactividad' } ];
+        res.redirect("/login");
+        return;
+    } else {
+        req.session.user.activo = new Date();
+    }
+  }
+  next();
+});
 
 app.use('/', routes);
 
